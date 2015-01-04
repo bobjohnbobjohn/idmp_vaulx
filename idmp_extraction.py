@@ -153,7 +153,7 @@ def parse_options():
         sys.exit(EXIT_FAILURE)
 
     if not params:
-        sys.stderr.write("Non parameter selected with -p option.\n")
+        sys.stderr.write("No parameter selected, use -p option.\n")
         sys.exit(EXIT_FAILURE)
 
 
@@ -180,7 +180,7 @@ def extract_data(month, day, hour, params, input, output):
         dst = None
 
     if PRINT_HEADER:
-        write_header(params, dst)
+        write_header(["MM/DD/YYYY","hh:mm"] + params, dst)
 
     nb_filter = len(filter(None, [month, day, hour]))
 
@@ -190,18 +190,18 @@ def extract_data(month, day, hour, params, input, output):
             i = i + 1
         else:
             fields = line.split("\t")
-            if selected_slot(fields[0].split(" "), nb_filter, month, day, hour):
-                extract_params(params, fields, dst)
-                break
+            datetime = fields[0].split(" ")
+            if selected_slot(datetime, nb_filter, month, day, hour):
+                extract_params(datetime, params, fields, dst)
 
     src.close()
     if dst:
         dst.close()
 
 
-def extract_params(params, fields, dst):
+def extract_params(datetime, params, fields, dst):
     """Write values of requested parameters in TSV format"""
-    out([fields[i] for i in [PARAMS[p][0] for p in params]], dst)
+    out(datetime + [fields[i] for i in [PARAMS[p][0] for p in params]], dst)
 
 
 def write_header(params, dst):
