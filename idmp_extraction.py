@@ -8,7 +8,7 @@
 extract data from the IDMP of Vaul-en-Velin, near Lyon (FR).
 
 more info at : {EN} http://idmp.entpe.fr/
-data can be downloaded here : {FR} http://idmp.entpe.fr/vaulx/mesfr.htm
+data can be downloaded here : {FR} http://idmp.entpe.fr/mesfr.htm
 """
 
 
